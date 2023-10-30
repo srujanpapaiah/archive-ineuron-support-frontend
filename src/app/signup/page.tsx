@@ -90,25 +90,6 @@ export default function Signup() {
           onChange={(e) => setUser({ ...user, email: e.target.value })}
           placeholder="Email"
         />
-        {/* <label htmlFor="role" className="mb-1">
-          {" "}
-          Role
-        </label> */}
-        {/* <select
-          className="p-2 border border-gray-300 rounded-lg mb-4 w-full focus:outline-none focus:border-lime-600 text-black"
-          id="role"
-          value={user.role}
-          onChange={(e) => setUser({ ...user, role: e.target.value })}
-          required
-        >
-          <option value="user"></option>
-          <option value="email">Email</option>
-          <option value="doubt">Doubts</option>
-          <option value="discord">Discord</option>
-          <option value="assignment">Assignments</option>
-          <option value="revechat">Reve Chat</option>
-        </select> */}
-
         <label htmlFor="password" className="mb-1">
           Password
         </label>

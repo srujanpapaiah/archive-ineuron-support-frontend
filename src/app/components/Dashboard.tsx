@@ -79,9 +79,8 @@ export default function Dashboard() {
     };
 
     fetchUser();
-    MyChats();
-  }, [token]); // Add token as a dependency to update the request when it changes
-
+    // MyChats();
+  }, [token]);
   const chatBox = (chatId: any, receiverName: any) => {
     setSelectedChatId(chatId);
     setSelectedUserName(receiverName);

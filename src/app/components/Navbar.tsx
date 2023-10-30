@@ -97,7 +97,7 @@ const Navbar = () => {
             alt={""}
             width={150}
             height={50}
-            priority={false}
+            priority={true}
             className=""
           />
         </Link>

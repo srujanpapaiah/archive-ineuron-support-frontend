@@ -104,13 +104,6 @@ export default function Profile() {
           Log Out
         </button>
       </div>
-
-      <div className="flex-1  w-1/2">
-        <div className="bg-gray-800 text-white rounded-md p-4 transform transition-transform duration-300 hover:scale-105 shadow-md text-center">
-          <h1 className="text-xl font-bold mb-2">Tickets Raised by You</h1>
-          {/* Add content for Tickets Raised by You here */}
-        </div>
-      </div>
     </div>
   );
 }
