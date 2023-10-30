@@ -1,1 +1,1 @@
-## A unified platform for PWSkills SME's
+## A platform for iNeuron support system

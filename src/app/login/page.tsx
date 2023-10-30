@@ -26,12 +26,20 @@ export default function Login() {
   const onLogin = async () => {
     setIsLoading(true);
     try {
-      const response = await axios.post("/api/users/login", user);
-      const userData = response.data.data;
-      toast.success("Login Success");
-      if (response) {
-        localStorage.setItem("token", userData.token);
+      const response = await axios.post(
+        // "/api/users/login",
+        "http://localhost:9002/api/auth/login",
+        user
+      );
+      const userData = response.data;
+
+      if (response.status === 200) {
+        const token = response.data.token;
+        localStorage.setItem("token", token);
       }
+
+      toast.success("Login Success");
+      localStorage.setItem("userInfo", JSON.stringify(userData));
       router.push("/");
     } catch (error: any) {
       toast.error(error.message);

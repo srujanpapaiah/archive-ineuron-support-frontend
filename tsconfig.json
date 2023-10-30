@@ -27,7 +27,8 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "src/dbConfig/dbConfig.js"
+    "src/dbConfig/dbConfig.js",
+    "src/app/components/SingleChat.tsx"
   ],
   "exclude": ["node_modules"]
 }

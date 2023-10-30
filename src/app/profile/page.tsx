@@ -18,6 +18,12 @@ export default function Profile() {
     __v: 0,
     _id: "",
   });
+  const [token, setToken] = useState<string | null>(() => {
+    if (typeof localStorage !== "undefined") {
+      return localStorage.getItem("token");
+    }
+    return null;
+  });
   const handleLogout = async () => {
     try {
       await axios.get("/api/users/logout");
@@ -30,9 +36,14 @@ export default function Profile() {
 
   const getUserDetails = async () => {
     try {
-      const res = await axios.get("/api/users/me");
-      setData(res.data.data);
-      console.log(res.data.data);
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      const res = await axios.get("http://localhost:9002/api/user/me", config);
+      setData(res.data.user);
     } catch (error: any) {
       throw new Error(error.message);
     }

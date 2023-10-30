@@ -9,8 +9,6 @@ import { usePathname } from "next/navigation";
 import Image from "next/image";
 import { useDispatch } from "react-redux";
 import { logIn } from "@/redux/features/authSlice";
-
-import Form from "./Form";
 import { AppDispatch, useAppSelector } from "@/redux/store";
 
 const Navbar = () => {
@@ -19,8 +17,14 @@ const Navbar = () => {
   const dispatch = useDispatch<AppDispatch>();
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const isAuth = useAppSelector((state) => state.authReducer.value.isAuth);
+  const [token, setToken] = useState<string | null>(() => {
+    if (typeof localStorage !== "undefined") {
+      return localStorage.getItem("token");
+    }
+    return null;
+  });
 
   const [data, setData] = useState({
     _id: "",
@@ -38,9 +42,17 @@ const Navbar = () => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
+        const config = {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        };
         if (path !== "/login" && path !== "/signup") {
-          const res = await axios.get("/api/users/me");
-          setData(res.data.data);
+          const res = await axios.get(
+            "http://localhost:9002/api/user/me",
+            config
+          );
+          setData(res.data.user);
           dispatch(logIn(true));
           setIsLoading(true);
           setIsLoggedIn(isAuth);
@@ -66,7 +78,7 @@ const Navbar = () => {
 
   const handleLogout = async () => {
     try {
-      await axios.get("/api/users/logout");
+      localStorage.setItem("token", "");
       toast.success("Logout Successful");
       setIsLoggedIn(false);
       router.push("/login");
@@ -89,33 +101,12 @@ const Navbar = () => {
             className=""
           />
         </Link>
-
-        <div>
-          {isLoggedIn ? (
-            <div className="flex gap-8 text-md font-semibold text-[#B8BBBF]">
-              <Link href="/rules">Rules</Link>
-              <Link href="/neurons">Neurons</Link>
-              <Link href="/assets">Assets</Link>
-            </div>
-          ) : null}
-        </div>
       </div>
 
       <div className="flex items-center relative">
         {isLoggedIn ? (
           <div>
-            <Form
-              modalVisible={modalVisible}
-              setModalVisible={setModalVisible}
-              data={data}
-            />
             <div className="flex ">
-              <button
-                className="mr-8 px-4 py-2 text-[#E6E9EC]  bg-[#4E4F50] hover:bg-[#3A3B3C] rounded-lg transition-all duration-300"
-                onClick={openModal}
-              >
-                New Ticket
-              </button>
               <button
                 className="cursor-pointer text-white"
                 onClick={toggleDropdown}
