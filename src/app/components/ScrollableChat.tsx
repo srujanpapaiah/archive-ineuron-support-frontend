@@ -8,7 +8,11 @@ import {
 } from "../../helpers/chatLogic";
 import { ChatState } from "../context/ChatProvider";
 
-const ScrollableChat = ({ messages }) => {
+interface ScrollableChatProps {
+  messages: any[]; // Replace 'any' with the actual type of your messages
+}
+
+const ScrollableChat: React.FC<ScrollableChatProps> = ({ messages }) => {
   const { user } = ChatState();
   return (
     <ScrollableFeed>
@@ -38,12 +42,6 @@ const ScrollableChat = ({ messages }) => {
             </div>
           </div>
         ))}
-
-      {/* <div className="mb-2 text-right">
-        <div className="bg-blue-500 p-2 rounded-lg text-white text-sm">
-          Sure, I'd be happy to assist you.
-        </div>
-      </div> */}
     </ScrollableFeed>
   );
 };
